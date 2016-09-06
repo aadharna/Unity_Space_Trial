@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameLoop : MonoBehaviour {
 
-	public GameObject hazard;
+	public GameObject[] hazards;
 	public Vector3 Spawn_Value;
 	public float spawn_wait, start_wait, wave_wait;
 	public int Hazard_Count;
@@ -43,9 +43,9 @@ public class GameLoop : MonoBehaviour {
 			wave += 1;
 			updateWave ();
 			for (int i = 0; i < Hazard_Count; i++) {
+				GameObject hazard = hazards [Random.Range (0, hazards.Length)];
 				Vector3 Spawn_Position = new Vector3 (
 					Random.Range (-Spawn_Value.x, Spawn_Value.x), Spawn_Value.y, Spawn_Value.z);
-		
 				Quaternion Spawn_Rotation = Quaternion.identity;
 				Instantiate (hazard, Spawn_Position, Spawn_Rotation);
 
@@ -58,6 +58,7 @@ public class GameLoop : MonoBehaviour {
 
 				restartText.text = "Press 'R' to restart the game";
 				restart = true;
+				Update ();
 				break;
 			}
 		}

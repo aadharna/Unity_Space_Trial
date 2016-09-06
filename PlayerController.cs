@@ -12,14 +12,16 @@ public class PlayerController : MonoBehaviour {
 	public Boundary boundary;
 	private Rigidbody rb;
 	private AudioSource audioSource;
+	private float nextFire;
+	private GameLoop gameController;
+
 	public float speed;
 	public float tilt;
 	public GameObject shot;
 	public Transform shotSpawn;
 	public float fireRate;
-	private float nextFire;
-	private GameLoop gameController;
 
+	//executed once at the start of the game
 	void Start() 
 	{
 		rb = GetComponent<Rigidbody>();
@@ -35,6 +37,7 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	//executed with each frame renewal
 	void Update() 
 	{
 		if ((Input.GetButton("Fire1") || Input.GetKeyDown("space")) && Time.time > nextFire) 

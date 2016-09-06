@@ -9,7 +9,6 @@ public class Death_By_Contact : MonoBehaviour {
 
 	void Start() {
 
-		scoreValue = 11;
 		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
 
 		if (gameControllerObject != null) {
@@ -22,21 +21,22 @@ public class Death_By_Contact : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 
-		if (other.CompareTag ("boundary")) {
+		if (other.CompareTag ("boundary") || other.CompareTag("enemy")) {
 			return;
-		} else {
-
-			Instantiate (explosion, transform.position, transform.rotation);
-
-			if (other.CompareTag ("Player")) {
-				Instantiate (PlayerExplosion, other.transform.position, other.transform.rotation);
-				gameController.GameOver ();
-			}
-
-			gameController.addScore (scoreValue);
-			Destroy (other.gameObject);
-			Destroy (gameObject);
-
 		}
+			
+		if (explosion != null) {
+			Instantiate (explosion, transform.position, transform.rotation);
+		}
+
+		if (other.CompareTag ("Player")) {
+			Instantiate (PlayerExplosion, other.transform.position, other.transform.rotation);
+			gameController.GameOver ();
+		}
+
+		gameController.addScore (scoreValue);
+		Destroy (other.gameObject);
+		Destroy (gameObject);
+
 	}
 }
